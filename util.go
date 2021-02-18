@@ -1,5 +1,6 @@
 package othellogo
 
+// coordinateToBitBoard returns BitBoard that is flagged only at the specified coordinates
 func coordinateToBitBoard(x int, y int) BitBoard {
 	var bb BitBoard = 0x8000000000000000
 
