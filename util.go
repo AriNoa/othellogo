@@ -7,5 +7,5 @@ func coordinateToBitBoard(x int, y int) BitBoard {
 	bb = bb >> x
 	bb = bb >> (y * 8)
 
-	return 0
+	return bb
 }
