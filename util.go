@@ -10,6 +10,51 @@ func coordinateToBitBoard(x int, y int) BitBoard {
 	return bb
 }
 
+// makeLegalBoard returns BitBoard with flags only on the squares where the player can be placed
 func makeLegalBoard(board Board) BitBoard {
-	return 0
+	horizontalWatchBoard := board.Opponent & 0x7e7e7e7e7e7e7e7e
+	verticalWatchBoard := board.Opponent & 0x00FFFFFFFFFFFF00
+	allSideWatchBoard := board.Opponent & 0x007e7e7e7e7e7e00
+
+	blankBoard := ^(board.Player | board.Opponent)
+
+	var legalBoard BitBoard
+
+	getNegativeStridedBoard := func(watchBoard BitBoard, shift int) BitBoard {
+		nextOpponentBoard := watchBoard & (board.Player << shift)
+		for i := 0; i < 5; i++ {
+			nextOpponentBoard |= horizontalWatchBoard & (nextOpponentBoard << shift)
+		}
+
+		return blankBoard & (nextOpponentBoard << shift)
+	}
+
+	getPositiveStridedBoard := func(watchBoard BitBoard, shift int) BitBoard {
+		nextOpponentBoard := watchBoard & (board.Player >> shift)
+		for i := 0; i < 5; i++ {
+			nextOpponentBoard |= horizontalWatchBoard & (nextOpponentBoard >> shift)
+		}
+
+		return blankBoard & (nextOpponentBoard >> shift)
+	}
+
+	// left
+	legalBoard |= getNegativeStridedBoard(horizontalWatchBoard, 1)
+	// left top
+	legalBoard |= getNegativeStridedBoard(allSideWatchBoard, 9)
+	// top
+	legalBoard |= getNegativeStridedBoard(verticalWatchBoard, 8)
+	// right top
+	legalBoard |= getNegativeStridedBoard(allSideWatchBoard, 7)
+
+	// right
+	legalBoard |= getPositiveStridedBoard(horizontalWatchBoard, 1)
+	// right bottom
+	legalBoard |= getPositiveStridedBoard(allSideWatchBoard, 9)
+	// bottom
+	legalBoard |= getPositiveStridedBoard(verticalWatchBoard, 8)
+	// left bottom
+	legalBoard |= getPositiveStridedBoard(allSideWatchBoard, 7)
+
+	return legalBoard
 }
