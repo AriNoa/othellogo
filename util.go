@@ -9,3 +9,7 @@ func coordinateToBitBoard(x int, y int) BitBoard {
 
 	return bb
 }
+
+func makeLegalBoard(board Board) BitBoard {
+	return 0
+}
