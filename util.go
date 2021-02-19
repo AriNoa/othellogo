@@ -1,7 +1,7 @@
 package othellogo
 
-// coordinateToBitBoard returns BitBoard that is flagged only at the specified coordinates
-func coordinateToBitBoard(x int, y int) BitBoard {
+// CoordinateToBitBoard returns BitBoard that is flagged only at the specified coordinates
+func CoordinateToBitBoard(x int, y int) BitBoard {
 	var bb BitBoard = 0x8000000000000000
 
 	bb = bb >> x
@@ -10,8 +10,8 @@ func coordinateToBitBoard(x int, y int) BitBoard {
 	return bb
 }
 
-// makeLegalBoard returns BitBoard with flags only on the squares where the player can be placed
-func makeLegalBoard(board Board) BitBoard {
+// MakeLegalBoard returns BitBoard with flags only on the squares where the player can be placed
+func MakeLegalBoard(board Board) BitBoard {
 	horizontalWatchBoard := board.Opponent & 0x7e7e7e7e7e7e7e7e
 	verticalWatchBoard := board.Opponent & 0x00FFFFFFFFFFFF00
 	allSideWatchBoard := board.Opponent & 0x007e7e7e7e7e7e00
