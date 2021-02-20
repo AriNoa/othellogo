@@ -58,3 +58,8 @@ func (board Board) MakeLegalBoard() BitBoard {
 
 	return legalBoard
 }
+
+// CanPutPoint returns true if possible
+func (board Board) CanPutPoint(x int, y int) bool {
+	return false
+}

@@ -28,3 +28,21 @@ func TestBoardMakeLegalBoard(t *testing.T) {
 
 	assert.Equal(t, legalBoard, BitBoard(0x002A0022002A0000))
 }
+
+func TestBoardCanPutLegalPoint(t *testing.T) {
+	board := Board{
+		0x0000000800000000,
+		0x00001C141C000000,
+	}
+
+	assert.True(t, board.CanPutPoint(2, 1))
+}
+
+func TestBoardCanPutIllegalPoint(t *testing.T) {
+	board := Board{
+		0x0000000800000000,
+		0x00001C141C000000,
+	}
+
+	assert.False(t, board.CanPutPoint(0, 0))
+}
