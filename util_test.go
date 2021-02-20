@@ -18,13 +18,13 @@ func TestEdgeCoordinateToBitBoard(t *testing.T) {
 	assert.Equal(t, bb, BitBoard(0x0000000000000001))
 }
 
-func TestMakeLegalBoard(t *testing.T) {
+func TestBoardMakeLegalBoard(t *testing.T) {
 	board := Board{
 		0x0000000800000000,
 		0x00001C141C000000,
 	}
 
-	legalBoard := MakeLegalBoard(board)
+	legalBoard := board.MakeLegalBoard()
 
 	assert.Equal(t, legalBoard, BitBoard(0x002A0022002A0000))
 }

@@ -11,7 +11,7 @@ func CoordinateToBitBoard(x int, y int) BitBoard {
 }
 
 // MakeLegalBoard returns BitBoard with flags only on the squares where the player can be placed
-func MakeLegalBoard(board Board) BitBoard {
+func (board Board) MakeLegalBoard() BitBoard {
 	horizontalWatchBoard := board.Opponent & 0x7e7e7e7e7e7e7e7e
 	verticalWatchBoard := board.Opponent & 0x00FFFFFFFFFFFF00
 	allSideWatchBoard := board.Opponent & 0x007e7e7e7e7e7e00
