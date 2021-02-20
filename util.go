@@ -61,5 +61,7 @@ func (board Board) MakeLegalBoard() BitBoard {
 
 // CanPutPoint returns true if possible
 func (board Board) CanPutPoint(x int, y int) bool {
-	return false
+	bb := CoordinateToBitBoard(x, y)
+
+	return (bb & board.MakeLegalBoard()) == bb
 }
