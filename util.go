@@ -66,7 +66,49 @@ func (board Board) CanPutPoint(x int, y int) bool {
 	return (bb & board.MakeLegalBoard()) == bb
 }
 
+// transfer returns BitBoard flagged at the inversion
+func transfer(pos BitBoard, dir int) BitBoard {
+	var ans BitBoard
+
+	switch dir {
+	case 0: // top
+		ans = (pos << 8) & 0xffffffffffffff00
+	case 1: // right top
+		ans = (pos << 7) & 0x7f7f7f7f7f7f7f00
+	case 2: // right
+		ans = (pos >> 1) & 0x7f7f7f7f7f7f7f7f
+	case 3: // right bottom
+		ans = (pos >> 9) & 0x007f7f7f7f7f7f7f
+	case 4: // bottom
+		ans = (pos >> 8) & 0x00ffffffffffffff
+	case 5: // left bottom
+		ans = (pos >> 7) & 0x00fefefefefefefe
+	case 6: // left
+		ans = (pos << 1) & 0xfefefefefefefefe
+	case 7: // left top
+		ans = (pos << 9) & 0xfefefefefefefe00
+	}
+
+	return ans
+}
+
 // Put puts a stone and performs inversion processing
 func (board *Board) Put(x int, y int) {
-	return
+	var reversed BitBoard = 0
+	var pos = CoordinateToBitBoard(x, y)
+
+	for k := 0; k < 8; k++ {
+		var rev BitBoard = 0
+		var mask BitBoard = transfer(pos, k)
+		for (mask != 0) && ((mask & board.Opponent) != 0) {
+			rev |= mask
+			mask = transfer(mask, k)
+		}
+		if (mask & board.Player) != 0 {
+			reversed |= rev
+		}
+	}
+
+	board.Player ^= pos | reversed
+	board.Opponent ^= reversed
 }
