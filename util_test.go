@@ -46,3 +46,19 @@ func TestBoardCanPutIllegalPoint(t *testing.T) {
 
 	assert.False(t, board.CanPutPoint(0, 0))
 }
+
+func TestBoardPut(t *testing.T) {
+	board := Board{
+		0x0000000800000000,
+		0x00001C141C000000,
+	}
+
+	put := Board{
+		0x0020100800000000,
+		0x00000C141C000000,
+	}
+
+	board.Put(2, 1)
+
+	assert.Equal(t, board, put)
+}

@@ -65,3 +65,8 @@ func (board Board) CanPutPoint(x int, y int) bool {
 
 	return (bb & board.MakeLegalBoard()) == bb
 }
+
+// Put puts a stone and performs inversion processing
+func (board *Board) Put(x int, y int) {
+	return
+}
