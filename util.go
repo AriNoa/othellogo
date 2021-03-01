@@ -115,5 +115,7 @@ func (board *Board) Reverse(x int, y int) {
 
 // TurnChange swaps players and opponents' boards
 func (board *Board) TurnChange() {
-	return
+	var tmp = board.Player
+	board.Player = board.Opponent
+	board.Opponent = tmp
 }
