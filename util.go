@@ -92,8 +92,8 @@ func transfer(pos BitBoard, dir int) BitBoard {
 	return ans
 }
 
-// Put puts a stone and performs inversion processing
-func (board *Board) Put(x int, y int) {
+// Reverse puts a stone and performs inversion processing
+func (board *Board) Reverse(x int, y int) {
 	var reversed BitBoard = 0
 	var pos = CoordinateToBitBoard(x, y)
 
