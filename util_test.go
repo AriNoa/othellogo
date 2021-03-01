@@ -62,3 +62,19 @@ func TestBoardReverse(t *testing.T) {
 
 	assert.Equal(t, board, reversed)
 }
+
+func TestBoardTurnChange(t *testing.T) {
+	board := Board{
+		0x0000000800000000,
+		0x00001C141C000000,
+	}
+
+	changed := Board{
+		0x00001C141C000000,
+		0x0000000800000000,
+	}
+
+	board.TurnChange()
+
+	assert.Equal(t, board, changed)
+}
