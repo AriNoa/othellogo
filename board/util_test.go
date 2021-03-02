@@ -1,4 +1,4 @@
-package othellogo
+package board
 
 import (
 	"testing"

@@ -1,4 +1,4 @@
-package othellogo
+package board
 
 // BitBoard is a bit representation of the board
 type BitBoard uint64

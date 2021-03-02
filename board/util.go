@@ -1,4 +1,4 @@
-package othellogo
+package board
 
 // CoordinateToBitBoard returns BitBoard that is flagged only at the specified coordinates
 func CoordinateToBitBoard(x int, y int) BitBoard {
